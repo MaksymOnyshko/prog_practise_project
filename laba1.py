@@ -3,7 +3,7 @@ import csv
 
 class Block:
     def __init__(self, block_id, view):
-        self.block_id = block_id.strip().lower()  # Уніфікуємо ID
+        self.block_id = block_id.strip().lower()
         self.view = int(view)
 
 
@@ -13,14 +13,14 @@ class Blockchain:
         self.votes = set()
 
     def add_vote(self, block_id):
-        self.votes.add(block_id.strip().lower())  # Уніфікуємо ID
+        self.votes.add(block_id.strip().lower())
 
     def add_block(self, block):
-        if block.view == 0:  # Додаємо початковий блок
+        if block.view == 0:
             self.chain.append(block)
             return
 
-        if not self.chain:  # Якщо блокчейн порожній, а блок не має view=0 — відхиляємо
+        if not self.chain:
             return
 
         last_view = self.chain[-1].view
@@ -29,18 +29,16 @@ class Blockchain:
             self.chain.append(block)
 
     def build_from_csv(self, blocks_file, votes_file):
-        # Завантажуємо голоси
         with open(votes_file, newline='', encoding='utf-8') as file:
             reader = csv.reader(file)
             for row in reader:
                 if row:
                     self.add_vote(row[0])
 
-        # Завантажуємо блоки
         with open(blocks_file, newline='', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                if 'id' in row and 'view' in row:  # PDF вказує, що id називається "id", а не "block_id"
+                if 'id' in row and 'view' in row:
                     block = Block(row['id'], row['view'])
                     self.add_block(block)
 
@@ -55,12 +53,11 @@ class Blockchain:
     def save_to_csv(self, output_file):
         with open(output_file, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow(["id", "view"])  # Відповідає формату з PDF
+            writer.writerow(["id", "view"])
             for block in self.chain:
                 writer.writerow([block.block_id, block.view])
 
 
-# Запуск програми
 blocks_file = "blocks.csv"
 votes_file = "votes.csv"
 output_file = "blocks_votes.csv"
