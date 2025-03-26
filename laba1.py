@@ -63,7 +63,7 @@ class Chain:
     def save_to_csv(self, output_file):
         with open(output_file, 'w', newline='', encoding='utf-8') as file:
             writer = csv.writer(file)
-            writer.writerow(["id", "view"])  #
+            writer.writerow(["id", "view"])
             for block in self.chain:
                 writer.writerow([block.block_id, block.view])
 
