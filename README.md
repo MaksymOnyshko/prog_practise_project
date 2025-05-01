@@ -57,6 +57,6 @@ flowchart TD
 
     BC --> L1PY
     VC --> L1PY
-    L1PY --> CC[chain.csv]
+    L1PY --> CC[blocks_votes.csv]
     CC --> L1PY
 ```
