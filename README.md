@@ -45,6 +45,7 @@
 
 ##  Діаграма структури проєкту (Mermaid)
 
+```mermaid
 flowchart TD
     A[Репозиторій] --> B[Гілка master]
     B1[olehkosenko] --> L1PY[laba1.py]
@@ -58,3 +59,4 @@ flowchart TD
     VC --> L1PY
     L1PY --> CC[chain.csv]
     CC --> L1PY
+```
